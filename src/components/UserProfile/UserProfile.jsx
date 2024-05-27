@@ -5,6 +5,7 @@ import styles from './UserProfile.module.css';
 const UserProfile = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [userId, setUserId] = useState(1);
 
     const fetchUser = async () => {
         setLoading(true); 
@@ -20,7 +21,10 @@ const UserProfile = () => {
 
     useEffect(() => {
         fetchUser();
-    }, []);
+    }, [userId]);
+    const handleNextUser = () => {
+        setUserId(prevId => prevId + 1);
+    }
 
     return (
         <div className={styles.profileContainer}>
@@ -32,7 +36,7 @@ const UserProfile = () => {
                     <h2>{user.name.first} {user.name.last}</h2>
                     <p>Email: {user.email}</p>
                     <p>Phone: {user.phone}</p>
-                    <button onClick={fetchUser}>Load New User</button>
+                    <button onClick={handleNextUser}>Load New User</button>
                 </div>
             )}
         </div>
